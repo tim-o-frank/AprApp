@@ -63,18 +63,18 @@ public class AmortizationScheduleNew {
 	}
 
 	//prefix for valid range string
-	public static final String VALID_RANGES = "Valid ranges are: ";
+	public static final String VALID_RANGES = "valid ranges are: ";
 	//error response for invalid apr
-	public static final String VALID_APR = VALID_RANGES + AprRange.LOW.getRangeValue() + " and " + AprRange.HIGH.getRangeValue();
+	public static final String VALID_APR = "APR " + VALID_RANGES + AprRange.LOW.getRangeValue() + " and " + AprRange.HIGH.getRangeValue();
 	//error response for invalid Principle
-	public static final String VALID_PRINCIPLE = VALID_RANGES + PrincipleRange.LOW.getRangeValue() + " and " + PrincipleRange.HIGH.getRangeValue();
+	public static final String VALID_PRINCIPLE = "Principle " + VALID_RANGES + PrincipleRange.LOW.getRangeValue() + " and " + PrincipleRange.HIGH.getRangeValue();
 	//error response for invalid Term
-	public static final String VALID_TERM = VALID_RANGES + TermRange.LOW.getRangeValue() + " and " + TermRange.HIGH.getRangeValue();
+	public static final String VALID_TERM = "Term " + VALID_RANGES + TermRange.LOW.getRangeValue() + " and " + TermRange.HIGH.getRangeValue();
 	//prefix for borrow prompt
 	public static final String ENTER_BORROW_AMOUNT = "Enter the amount you would like to borrow. " + VALID_PRINCIPLE;
-	//prefix for borrow prompt
+	//prefix for apr prompt
 	public static final String ENTER_APR_AMOUNT = "Enter the interest rate for the loan. " + VALID_APR;
-	//prefix for borrow prompt
+	//prefix for term prompt
 	public static final String ENTER_TERM_AMOUNT = "Enter the term in years for the loan. " + VALID_TERM;
 
 
@@ -87,20 +87,20 @@ public class AmortizationScheduleNew {
 	 *
 	 * param {BigDecimal} termOfLoanInYears - Term of loan in years
 	 *
-	*/
+	 */
 	public AmortizationScheduleNew(BigDecimal amountBorrowed, BigDecimal annualPercentageRate, BigDecimal termOfLoanInYears){
-		 //validate input
+		//validate input
 		String invalidInputs = null;
 		if (!isValidApr(annualPercentageRate)){
 			invalidInputs = VALID_APR;
 		}
 
 		if (!isValidPrinciple(amountBorrowed)){
-			invalidInputs = invalidInputs + VALID_PRINCIPLE;
+			invalidInputs = (invalidInputs != null)?invalidInputs + " " + VALID_PRINCIPLE : VALID_PRINCIPLE;
 		}
 
 		if (!isValidTerm(termOfLoanInYears)){
-			invalidInputs = invalidInputs + VALID_TERM;
+			invalidInputs = (invalidInputs != null)?invalidInputs + " " + VALID_TERM : VALID_TERM;
 		}
 
 		if (invalidInputs != null){
@@ -156,19 +156,19 @@ public class AmortizationScheduleNew {
 	 *
 	 * param BigDecimal principle - Principle amount of the loan entered by user
 	 *
-	 * param Boolean - true if principle is valid
+	 * return Boolean - true if principle is valid
 	 */
-	 public static Boolean isValidPrinciple(BigDecimal principle){
-		 //is the principle less than .01
-		 if (principle.compareTo(PrincipleRange.LOW.getRangeValue()) < 0){
-			 return false;
-		 }
-		 //is the principle greater than 1000000000000
-		 if (principle.compareTo(PrincipleRange.HIGH.getRangeValue()) > 0){
-			 return false;
-		 }
-		 return true;
-	 }
+	public static Boolean isValidPrinciple(BigDecimal principle){
+		//is the principle less than .01
+		if (principle.compareTo(PrincipleRange.LOW.getRangeValue()) < 0){
+			return false;
+		}
+		//is the principle greater than 1000000000000
+		if (principle.compareTo(PrincipleRange.HIGH.getRangeValue()) > 0){
+			return false;
+		}
+		return true;
+	}
 
 	/**
 	 * Utility method to validate the apr of the loan

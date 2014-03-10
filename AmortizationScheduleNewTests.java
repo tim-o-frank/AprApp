@@ -23,7 +23,7 @@ public class AmortizationScheduleNewTests {
 	public void testConstructAmortizationScheduleIllegalArgZeros() {
 		System.out.println("Test if invalid values for constructor throw illegal arg all 0's ex...") ;
 		try {
-			AmortizationScheduleNew asn = new AmortizationScheduleNew(BigDecimal.ZERO,BigDecimal.ZERO,BigDecimal.ZERO);
+			AmortizationScheduleNew1 asn = new AmortizationScheduleNew1(BigDecimal.ZERO,BigDecimal.ZERO,BigDecimal.ZERO);
 		} catch (IllegalArgumentException e) {
 			assert true;
 			return;
@@ -36,7 +36,7 @@ public class AmortizationScheduleNewTests {
 	public void testConstructAmortizationScheduleIllegalArgLowPrinciple() {
 		System.out.println("Test if invalid values for constructor throw illegal arg ex...") ;
 		try {
-			AmortizationScheduleNew asn = new AmortizationScheduleNew(BigDecimal.ZERO,new BigDecimal("5"),new BigDecimal("5"));
+			AmortizationScheduleNew1 asn = new AmortizationScheduleNew1(BigDecimal.ZERO,new BigDecimal("5"),new BigDecimal("5"));
 		} catch (IllegalArgumentException e) {
 			assert true;
 			return;
@@ -49,7 +49,7 @@ public class AmortizationScheduleNewTests {
 	public void testCalculateMonthlyPayment() {
 		System.out.println("Test if calculate monthly payment returns valid value...") ;
 
-		AmortizationScheduleNew asn = new AmortizationScheduleNew(new BigDecimal("1000"), new BigDecimal("5"), new BigDecimal("1"));
+		AmortizationScheduleNew1 asn = new AmortizationScheduleNew1(new BigDecimal("1000"), new BigDecimal("5"), new BigDecimal("1"));
 		assertEquals(asn.calculateMonthlyPayment().setScale(2, RoundingMode.HALF_UP), new BigDecimal("85.61"));
 	}
 }
